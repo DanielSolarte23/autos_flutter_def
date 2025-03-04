@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:alquiler_flutter_dan/views/menuPrincipal.dart';
 
 class register extends StatefulWidget {
+  const register({super.key});
+
   @override
   State<register> createState() => _registerState();
 }

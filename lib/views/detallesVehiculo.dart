@@ -1,21 +1,36 @@
 import 'package:alquiler_flutter_dan/views/medioPago.dart';
 import 'package:flutter/material.dart';
 
-class Detallesvehiculo extends StatefulWidget {
-  const Detallesvehiculo({super.key});
+class DetalleVehiculoScreen extends StatefulWidget {
+  final String imageUrl;
+  final String marca;
+  final String modelo;
+  final String anio;
+  final int disponibilidad;
+  final int autoId;
+
+  const DetalleVehiculoScreen({
+    super.key,
+    required this.imageUrl,
+    required this.marca,
+    required this.modelo,
+    required this.anio,
+    required this.disponibilidad,
+    required this.autoId,
+  });
 
   @override
-  State<Detallesvehiculo> createState() => _DetallesvehiculoState();
+  State<DetalleVehiculoScreen> createState() => _DetalleVehiculoScreenState();
 }
 
-class _DetallesvehiculoState extends State<Detallesvehiculo> {
+class _DetalleVehiculoScreenState extends State<DetalleVehiculoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: const Text(
-            "Detalle del vehiculo",
+            "Detalle del vehículo",
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -27,103 +42,85 @@ class _DetallesvehiculoState extends State<Detallesvehiculo> {
             children: [
               Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: Image.network(
-                      "https://images.vexels.com/media/users/3/145078/isolated/preview/d5026c659b3202b62a4213be947c2ff6-ilustracion-de-suv-rojo.png",
+                      widget.imageUrl,
                       height: 200,
                       width: 200,
                     ),
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      Text(
-                        "Marca:",
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                      const Text(
+                        "Marca: ",
+                        style:
+                            TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Toyota",
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                        widget.marca,
+                        style:
+                            const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 15,
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                       Text(
+                        "Modelo: ${widget.marca}",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
                   ),
-                  const Row(
+                  const SizedBox(height: 15),
+                  Row(
                     children: [
                       Text(
-                        "Modelo:",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        "Año: ${widget.anio}",
+                        style: TextStyle(fontSize: 20),
                       ),
                       Text(
-                        "Corolla",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        widget.anio,
+                        style: const TextStyle(fontSize: 20),
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Row(
+                  const SizedBox(height: 15),
+                  Row(
                     children: [
                       Text(
-                        "Año:",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        "2022",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Row(
-                    children: [
-                      Text(
-                        "Disponibilidad:",
+                        "Disponibilidad: ${widget.disponibilidad}",
                         style: TextStyle(fontSize: 20, color: Colors.green),
                       ),
                       Text(
-                        "Disponible",
-                        style: TextStyle(fontSize: 20, color: Colors.green),
+                        widget.disponibilidad > 0 ? "Disponible" : "No disponible",
+                        style: const TextStyle(fontSize: 20, color: Colors.green),
                       )
                     ],
                   ),
                 ],
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Mediopago()));
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: widget.disponibilidad > 0
+                    ? () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Mediopago()));
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.disponibilidad > 0
+                        ? Colors.red
+                        : Colors.grey),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.directions_car,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
+                    Icon(Icons.directions_car, color: Colors.white),
+                    SizedBox(width: 5),
                     Text(
-                      "Alquilar vehiculo",
+                      "Alquilar vehículo",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     )
                   ],

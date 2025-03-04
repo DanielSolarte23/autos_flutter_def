@@ -4,6 +4,8 @@ import 'package:alquiler_flutter_dan/views/menuPrincipal.dart';
 import 'package:alquiler_flutter_dan/views/register.dart';
 
 class login extends StatefulWidget {
+  const login({super.key});
+
   @override
   State<login> createState() => _loginState();
 }
